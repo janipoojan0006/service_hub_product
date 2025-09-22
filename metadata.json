@@ -1,0 +1,5 @@
+{
+  "name": "ServiceHub On-Demand Services",
+  "description": "An application to book various at-home services like lawn mowing, snow shoveling, and haircuts, similar to an Uber for home services.",
+  "requestFramePermissions": []
+}

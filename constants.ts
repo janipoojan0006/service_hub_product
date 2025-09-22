@@ -1,0 +1,266 @@
+import { ServiceCategory, Provider, BookingRequest, User, UserRole, RequestStatus, Review } from './types';
+import { LawnIcon, SnowIcon, CutIcon, CleanIcon, RepairIcon, MoveIcon } from './components/IconComponents';
+
+export const SERVICE_CATEGORIES: ServiceCategory[] = [
+  {
+    id: 'lawn_care',
+    name: 'Lawn & Garden',
+    description: 'Keep your yard pristine.',
+    icon: LawnIcon,
+    services: [
+      { id: 'lawn_mowing', name: 'Lawn Mowing', basePrice: 50 },
+      { id: 'weeding', name: 'Garden Weeding', basePrice: 40 },
+      { id: 'hedge_trimming', name: 'Hedge Trimming', basePrice: 65 },
+    ],
+  },
+  {
+    id: 'winter_services',
+    name: 'Winter Services',
+    description: 'Clear snow and stay safe.',
+    icon: SnowIcon,
+    services: [
+      { id: 'snow_shoveling', name: 'Snow Shoveling', basePrice: 70 },
+      { id: 'driveway_salting', name: 'Driveway Salting', basePrice: 45 },
+      { id: 'roof_snow_removal', name: 'Roof Snow Removal', basePrice: 150 },
+    ],
+  },
+  {
+    id: 'personal_care',
+    name: 'Personal Care',
+    description: 'Grooming services at home.',
+    icon: CutIcon,
+    services: [
+      { id: 'haircut', name: 'At-Home Haircut', basePrice: 60 },
+      { id: 'manicure', name: 'Mobile Manicure', basePrice: 55 },
+      { id: 'beard_trim', name: 'Beard Trim & Styling', basePrice: 35 },
+    ],
+  },
+    {
+    id: 'home_cleaning',
+    name: 'Home Cleaning',
+    description: 'Sparkling clean living spaces.',
+    icon: CleanIcon,
+    services: [
+      { id: 'standard_clean', name: 'Standard House Cleaning', basePrice: 120 },
+      { id: 'deep_clean', name: 'Deep Cleaning', basePrice: 250 },
+      { id: 'window_cleaning', name: 'Window Washing', basePrice: 90 },
+    ],
+  },
+  {
+    id: 'handyman',
+    name: 'Handyman Services',
+    description: 'Fixes and installations.',
+    icon: RepairIcon,
+    services: [
+      { id: 'shelf_mounting', name: 'Shelf Mounting', basePrice: 75 },
+      { id: 'faucet_repair', name: 'Leaky Faucet Repair', basePrice: 100 },
+      { id: 'tv_mounting', name: 'TV Mounting', basePrice: 130 },
+    ],
+  },
+  {
+    id: 'moving_help',
+    name: 'Moving Help',
+    description: 'An extra set of hands.',
+    icon: MoveIcon,
+    services: [
+      { id: 'heavy_lifting', name: 'Heavy Lifting (2 hours)', basePrice: 150 },
+      { id: 'packing', name: 'Packing Assistance', basePrice: 100 },
+      { id: 'furniture_assembly', name: 'Furniture Assembly', basePrice: 90 },
+    ],
+  },
+];
+
+// Mock Data for new features
+export const MOCK_USERS: { [key: string]: User } = {
+  customer: { id: 'user_customer_1', name: 'Alex Smith', email: 'alex.smith@example.com', role: UserRole.CUSTOMER },
+  provider: { id: 'prov_1', name: 'Green Thumb Landscaping', email: 'contact@gtlandscaping.com', role: UserRole.PROVIDER },
+};
+
+export const PROVIDERS: Provider[] = [
+  {
+    id: 'prov_1',
+    name: 'Green Thumb Landscaping',
+    rating: 4.8,
+    distance: 1.5,
+    bio: 'Family-owned business with 10+ years of experience in lawn care.',
+    services: ['lawn_mowing', 'weeding', 'hedge_trimming'],
+    availability: [
+        { day: 'monday', startTime: 9, endTime: 17 },
+        { day: 'tuesday', startTime: 9, endTime: 17 },
+        { day: 'wednesday', startTime: 9, endTime: 17 },
+        { day: 'thursday', startTime: 9, endTime: 17 },
+        { day: 'friday', startTime: 9, endTime: 14 },
+    ],
+  },
+  {
+    id: 'prov_2',
+    name: 'QuickCuts by Mike',
+    rating: 4.9,
+    distance: 2.1,
+    bio: 'Professional and stylish haircuts in the comfort of your home.',
+    services: ['haircut', 'beard_trim'],
+     availability: [
+        { day: 'tuesday', startTime: 10, endTime: 18 },
+        { day: 'wednesday', startTime: 10, endTime: 18 },
+        { day: 'thursday', startTime: 12, endTime: 20 },
+        { day: 'saturday', startTime: 9, endTime: 16 },
+    ],
+  },
+  {
+    id: 'prov_3',
+    name: 'Winter Warriors',
+    rating: 4.7,
+    distance: 3.0,
+    bio: 'Fast and reliable snow removal services to keep you safe.',
+    services: ['snow_shoveling', 'driveway_salting'],
+    availability: [
+        { day: 'saturday', startTime: 8, endTime: 18 },
+        { day: 'sunday', startTime: 8, endTime: 18 },
+    ],
+  },
+  {
+    id: 'prov_4',
+    name: 'Pristine Lawns',
+    rating: 4.5,
+    distance: 4.2,
+    bio: 'We make your lawn the envy of the neighborhood.',
+    services: ['lawn_mowing'],
+    availability: [
+        { day: 'monday', startTime: 8, endTime: 16 },
+        { day: 'tuesday', startTime: 8, endTime: 16 },
+        { day: 'wednesday', startTime: 8, endTime: 16 },
+        { day: 'thursday', startTime: 8, endTime: 16 },
+        { day: 'friday', startTime: 8, endTime: 12 },
+    ],
+  },
+   {
+    id: 'prov_5',
+    name: 'The Fix It Crew',
+    rating: 4.9,
+    distance: 1.8,
+    bio: 'No job too small! We handle all your handyman needs.',
+    services: ['shelf_mounting', 'faucet_repair', 'tv_mounting'],
+    availability: [
+        { day: 'monday', startTime: 9, endTime: 17 },
+        { day: 'tuesday', startTime: 9, endTime: 17 },
+        { day: 'wednesday', startTime: 9, endTime: 17 },
+        { day: 'thursday', startTime: 9, endTime: 17 },
+        { day: 'friday', startTime: 9, endTime: 17 },
+    ],
+  },
+  {
+    id: 'prov_6',
+    name: 'Sparkle Cleaners',
+    rating: 4.6,
+    distance: 5.1,
+    bio: 'Home cleaning services that leave your space sparkling.',
+    services: ['standard_clean', 'deep_clean', 'window_cleaning'],
+    availability: [
+        { day: 'monday', startTime: 8, endTime: 15 },
+        { day: 'wednesday', startTime: 8, endTime: 15 },
+        { day: 'friday', startTime: 8, endTime: 15 },
+    ],
+  },
+];
+
+export const MOCK_BOOKING_REQUESTS: BookingRequest[] = [
+    {
+        id: 'req_1',
+        customerId: 'cust_123',
+        customerName: 'Jane Doe',
+        providerId: 'prov_1',
+        serviceId: 'lawn_mowing',
+        serviceName: 'Lawn Mowing',
+        status: RequestStatus.PENDING,
+        dateTime: new Date(new Date().setDate(new Date().getDate() + 2)),
+        reviewSubmitted: false,
+    },
+    {
+        id: 'req_2',
+        customerId: 'cust_456',
+        customerName: 'John Smith',
+        providerId: 'prov_1',
+        serviceId: 'hedge_trimming',
+        serviceName: 'Hedge Trimming',
+        status: RequestStatus.CONFIRMED,
+        dateTime: new Date(new Date(new Date().setDate(new Date().getDate() + 3)).setHours(10, 0, 0, 0)),
+        reviewSubmitted: false,
+    },
+    {
+        id: 'req_3',
+        customerId: 'cust_789',
+        customerName: 'Emily White',
+        providerId: 'prov_1',
+        serviceId: 'weeding',
+        serviceName: 'Garden Weeding',
+        status: RequestStatus.PENDING,
+        dateTime: new Date(new Date(new Date().setDate(new Date().getDate() + 3)).setHours(14, 0, 0, 0)),
+        reviewSubmitted: false,
+    },
+    {
+        id: 'req_4',
+        customerId: MOCK_USERS.customer.id,
+        customerName: MOCK_USERS.customer.name,
+        providerId: 'prov_2',
+        serviceId: 'haircut',
+        serviceName: 'At-Home Haircut',
+        status: RequestStatus.COMPLETED,
+        dateTime: new Date(new Date().setDate(new Date().getDate() - 5)),
+        reviewSubmitted: true,
+    },
+    {
+        id: 'req_5',
+        customerId: MOCK_USERS.customer.id,
+        customerName: MOCK_USERS.customer.name,
+        providerId: 'prov_1',
+        serviceId: 'lawn_mowing',
+        serviceName: 'Lawn Mowing',
+        status: RequestStatus.COMPLETED,
+        dateTime: new Date(new Date().setDate(new Date().getDate() - 10)),
+        reviewSubmitted: false,
+    },
+    {
+        id: 'req_6',
+        customerId: MOCK_USERS.customer.id,
+        customerName: MOCK_USERS.customer.name,
+        providerId: 'prov_5',
+        serviceId: 'tv_mounting',
+        serviceName: 'TV Mounting',
+        status: RequestStatus.CONFIRMED,
+        dateTime: new Date(new Date().setDate(new Date().getDate() + 4)),
+        reviewSubmitted: false,
+    },
+];
+
+export const MOCK_REVIEWS: Review[] = [
+    {
+        id: 'rev_1',
+        providerId: 'prov_2',
+        customerId: 'user_customer_1',
+        customerName: 'Alex Smith',
+        rating: 5,
+        comment: 'Mike was fantastic! Very professional and gave me the exact haircut I wanted. Will definitely book again.',
+        date: new Date(new Date().setDate(new Date().getDate() - 4)),
+        serviceName: 'At-Home Haircut',
+    },
+     {
+        id: 'rev_2',
+        providerId: 'prov_1',
+        customerId: 'user_customer_2',
+        customerName: 'Sarah Johnson',
+        rating: 5,
+        comment: 'Green Thumb Landscaping did an amazing job on my lawn. It has never looked better. Highly recommend!',
+        date: new Date(new Date().setDate(new Date().getDate() - 12)),
+        serviceName: 'Lawn Mowing',
+    },
+    {
+        id: 'rev_3',
+        providerId: 'prov_1',
+        customerId: 'user_customer_3',
+        customerName: 'David Chen',
+        rating: 4,
+        comment: 'Very good service. They were efficient and cleaned up everything perfectly. Only knocking one star because they were a bit late.',
+        date: new Date(new Date().setDate(new Date().getDate() - 25)),
+        serviceName: 'Hedge Trimming',
+    }
+];
